@@ -7,9 +7,11 @@ import Header from "./Header";
 import AddPerson from "./AddPerson";
 import PersonList from "./PersonList";
 import EditPerson from "./EditPerson";
+import PairsList from "./PairsList";
 
 function App() {
   const [persons, setPersons] = useState([]);
+  const [receivers, setReceivers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
@@ -52,7 +54,11 @@ function App() {
   useEffect(() => {
     const getAllPersons = async () => {
       const allPersons = await retrievePersons();
-      if (allPersons) setPersons(allPersons);
+      // if (allPersons) setPersons(allPersons);
+      if (allPersons) {
+        setPersons(allPersons);
+        setReceivers (allPersons)
+      }
     };
 
     getAllPersons();
@@ -61,8 +67,8 @@ function App() {
 
   return (
     <div className="ui container">
-      <Router>
         <Header />
+      <Router>
         <Switch>
           <Route
             path="/"
@@ -89,6 +95,15 @@ function App() {
               <EditPerson
                 {...props}
                 updatePersonHandler={updatePersonHandler}
+              />
+            )}
+          />
+          <Route
+            path="/pairs"
+            render={() => (
+              <PairsList
+                persons={persons}
+                receivers={receivers}
               />
             )}
           />

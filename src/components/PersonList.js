@@ -4,6 +4,7 @@ import PersonElement from "./PersonElement";
 
 
 const PersonList = (props) => {
+
   console.log(props);
 
   const deleteConactHandler = (id) => {
@@ -29,6 +30,9 @@ const PersonList = (props) => {
         </Link>
       </h2>
       <div className="ui celled list">{renderPersonList}</div>
+      {props.persons.length >= 2 && <Link to="/pairs">
+          <button className="ui button blue right">Sort Pairs</button>
+        </Link>}
     </div>
   );
 };
