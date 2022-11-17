@@ -5,7 +5,7 @@ const MatchElement = (props) => {
   return (
     <div className="item">
       <div className="content">
-        <div className="header">{santa} is given to {gifted}</div>
+        <div className="header">{santa} is giving to {gifted}</div>
       </div>
     </div>
   );

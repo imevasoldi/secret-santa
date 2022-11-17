@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { v4 } from "uuid";
 import api from "../api/persons";
 import "./App.css";
@@ -8,6 +8,7 @@ import AddPerson from "./AddPerson";
 import PersonList from "./PersonList";
 import EditPerson from "./EditPerson";
 import PairsList from "./PairsList";
+import PersonDetail from "./PersonDetail";
 
 function App() {
   const [persons, setPersons] = useState([]);
@@ -69,46 +70,58 @@ function App() {
     <div className="ui container">
         <Header />
       <Router>
-        <Switch>
+        <Routes>
           <Route
             path="/"
             exact
-            render={(props) => (
-              <PersonList
-                {...props}
+            element={<PersonList
                 persons={searchTerm.length < 1 ? persons : searchResults}
                 getPersonId={removePersonHandler}
                 term={searchTerm}
               />
-            )}
+            }
+            // render={(props) => (
+            //   <PersonList
+            //     {...props}
+            //     persons={searchTerm.length < 1 ? persons : searchResults}
+            //     getPersonId={removePersonHandler}
+            //     term={searchTerm}
+            //   />
+            // )}
           />
           <Route
             path="/add"
-            render={(props) => (
-              <AddPerson {...props} addPersonHandler={addPersonHandler} />
-            )}
+            element={
+              <AddPerson addPersonHandler={addPersonHandler} />
+            }
           />
 
           <Route
             path="/edit"
-            render={(props) => (
+            element={
               <EditPerson
-                {...props}
                 updatePersonHandler={updatePersonHandler}
               />
-            )}
+            }
           />
           <Route
             path="/pairs"
-            render={() => (
+            element={
               <PairsList
                 persons={persons}
                 receivers={receivers}
               />
-            )}
+            }
           />
-
-        </Switch>
+          <Route 
+            path="/persons/:id" 
+            element={
+              <PersonDetail
+                
+              />
+            } 
+            />
+        </Routes>
       </Router>
     </div>
   );
